@@ -1,7 +1,7 @@
 #include <iostream>
 #include <vector>
 
-class FenwickTree{
+class FenwickTree {
   std::vector<int> data_;
   int size_ = 0;
 
@@ -14,10 +14,10 @@ class FenwickTree{
     return sum;
   }
 
-public:
+ public:
   // Конструктор
   FenwickTree(int size) : size_(size) {
-    data_ = std::vector<int>(size + 1,0);
+    data_ = std::vector<int>(size + 1, 0);
   }
 
   // Добавление значения в массив
@@ -29,6 +29,23 @@ public:
 
   // Сумма от l до r включительно
   int range_sum(int l, int r) {
-    return sum(r) - sum(l-1);
+    return sum(r) - sum(l - 1);
   }
 };
+
+int main() {
+
+  int n, m;
+  std::cin >> n >> m;
+
+  FenwickTree tree = n;
+  int request, first_num, second_num;
+  for (int i; i < m; ++i) {
+    std::cin >> request >> first_num >> second_num;
+    if (request == 1) {
+      tree.add(first_num, second_num);
+    } else {
+      std::cout << tree.range_sum(first_num, second_num) << "\n";
+    }
+  }
+}
