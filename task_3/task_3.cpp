@@ -40,12 +40,18 @@ int main() {
 
   FenwickTree tree = n;
   int request, first_num, second_num;
-  for (int i; i < m; ++i) {
+  std::vector<int> result;
+
+  for (int i = 0; i < m; ++i) {
     std::cin >> request >> first_num >> second_num;
     if (request == 1) {
       tree.add(first_num, second_num);
     } else {
-      std::cout << tree.range_sum(first_num, second_num) << "\n";
+      result.push_back(tree.range_sum(first_num, second_num));
     }
+  }
+
+  for (int i = 0; i < result.size(); ++i) {
+    std::cout << result[i] << "\n";
   }
 }
