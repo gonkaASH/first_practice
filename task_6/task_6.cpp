@@ -1,9 +1,12 @@
 #include <iostream>
 #include <algorithm>
+#include <vector>
 
 int main() {
   int n, a, b, x, y;
   std::cin >> n;
+
+  std::vector<int> res;
 
   // Максимальное количество всех пар и пар с микроконтрролеррами типа B
   int sum_pairs, max_pairs_B;
@@ -20,6 +23,12 @@ int main() {
     // Формируем пары из оставшихся модулей контроля и микроконтроллеров типа B
     sum_pairs += std::min(x + y, a);
 
-    std::cout << sum_pairs << "\n";
+    res.push_back(sum_pairs);
   }
+
+  for (int i = 0; i < n; ++i) {
+    std::cout << res[i] << " ";
+  }
+
+  std::cout << "\n";
 }
