@@ -7,7 +7,7 @@ Adafruit_NeoPixel pixels(NUMPIXELS, PIN, NEO_GRB + NEO_KHZ800);
 
 void setup() {
   pixels.begin();
-  pixels.setBrightness(40);
+  pixels.setBrightness(100);
   pixels.show();
 }
 
@@ -97,19 +97,59 @@ uint8_t frame5[8][8] = {
   {1,1,1,1,1,1,1,1}
 };
 
+uint8_t heart[8][8] = {
+  {0,0,0,0,0,0,0,0},
+  {0,0,1,0,0,1,0,0},
+  {0,1,1,1,1,1,1,0},
+  {0,1,1,1,1,1,1,0},
+  {0,0,1,1,1,1,0,0},
+  {0,0,0,1,1,0,0,0},
+  {0,0,0,0,0,0,0,0},
+  {0,0,0,0,0,0,0,0}
+};
+
 void loop() {
-  drawFrame(frame1, pixels.Color(255, 255, 0));
+  //1. Анимация "Расходящиеся квадраты"
+  drawFrame(frame1, pixels.Color(0, 0, 255));
   delay(500);
 
-  drawFrame(frame2, pixels.Color(255, 255, 0));
+  drawFrame(frame2, pixels.Color(0, 0, 255));
   delay(500);
 
-  drawFrame(frame3, pixels.Color(255, 255, 0));
+  drawFrame(frame3, pixels.Color(0, 0, 255));
   delay(500);
 
-  drawFrame(frame4, pixels.Color(255, 255, 0));
+  drawFrame(frame4, pixels.Color(0, 0, 255));
   delay(500);
 
-  drawFrame(frame5, pixels.Color(255, 255, 0));
+  drawFrame(frame5, pixels.Color(0, 0, 255));
   delay(500);
+
+  // 2. Анимация "Змейка"
+  // По очереди зажигаем светодиоды зеленым цветом
+  for(int i = 0; i < NUMPIXELS; i++) {
+    pixels.setPixelColor(i, pixels.Color(0, 255, 0));
+    pixels.show();
+    delay(30);
+  }
+
+  delay(500); // Небольшая пауза
+
+  // Так же по очереди их гасим
+  for(int i = 0; i < NUMPIXELS; i++) {
+    pixels.setPixelColor(i, pixels.Color(0, 0, 0)); // Выключить цвет
+    pixels.show();
+    delay(30);
+  }
+
+  delay(500);
+
+  //3. Анимация "Сердце"
+
+  for (int i = 0; i < 10; ++i) {
+    drawFrame(heart, pixels.Color(255, 0, 0));
+    delay(500);
+    drawFrame(heart, pixels.Color(125, 0, 0));
+    delay(500);
+  }
 }
